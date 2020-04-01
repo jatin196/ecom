@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+    <div id="all">
+      <div id="heading-breadcrumbs">
+        <div class="container">
+          <div class="row d-flex align-items-center flex-wrap">
+            <div class="col-md-7">
+              <h1 class="h2">Category with left sidebar</h1>
+            </div>
+            <div class="col-md-5">
+              <ul class="breadcrumb d-flex justify-content-end">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Shopping </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="content">
+        <div class="container">
+          <div class="row bar">
+            <div class="col-md-3">
+              <!-- MENUS AND FILTERS-->
+              <!--<div class="panel panel-default sidebar-menu">-->
+                <!--<div class="panel-heading">-->
+                  <!--<h3 class="h4 panel-title">Categories</h3>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                  <!--<ul class="nav nav-pills flex-column text-sm category-menu">-->
+                    <!--<li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Men </span><span class="badge badge-secondary">42</span></a>-->
+                      <!--<ul class="nav nav-pills flex-column">-->
+                        <!--{% for cat in obj.all_pdt.category.all %}-->
+                        <!--<li class="nav-item"><a href="shop-category.html" class="nav-link">{{ cat.title }}</a></li>-->
+                   <!--{% endfor %}-->
+
+                      <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item"><a href="shop-category.html" class="nav-link active d-flex align-items-center justify-content-between"><span>Ladies  </span><span class="badge badge-light">123</span></a>-->
+                      <!--<ul class="nav nav-pills flex-column">-->
+                        <!--{% for pdt in all_pdt %}-->
+                        <!--{% for cat in pdt.category.all %}-->
+                        <!--<li class="nav-item"><a href="shop-category.html" class="nav-link">{{ cat.title }}</a></li>-->
+                   <!--{% endfor %}-->
+                   <!--{% endfor %}-->
+                      <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Kids  </span><span class="badge badge-secondary">11</span></a>-->
+                      <!--<ul class="nav nav-pills flex-column">-->
+                        <!--<li class="nav-item"><a href="shop-category.html" class="nav-link">T-shirts</a></li>-->
+                        <!--<li class="nav-item"><a href="shop-category.html" class="nav-link">Skirts</a></li>-->
+                        <!--<li class="nav-item"><a href="shop-category.html" class="nav-link">Pants</a></li>-->
+                        <!--<li class="nav-item"><a href="shop-category.html" class="nav-link">Accessories</a></li>-->
+                      <!--</ul>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="panel panel-default sidebar-menu">-->
+                <!--<div class="panel-heading d-flex align-items-center justify-content-between">-->
+                  <!--<h3 class="h4 panel-title">Brands</h3><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i><span class="d-none d-md-inline-block">Clear</span></a>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                  <!--<form>-->
+                    <!--<div class="form-group">-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"> Armani  (10)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"> Versace  (12)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"> Carlo Bruni  (15)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"> Jack Honey  (14)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<button class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>-->
+                  <!--</form>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="panel panel-default sidebar-menu">-->
+                <!--<div class="panel-heading d-flex align-items-center justify-content-between">-->
+                  <!--<h3 class="h4 panel-title">Colours</h3><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i><span class="d-none d-md-inline-block">Clear</span></a>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                  <!--<form>-->
+                    <!--<div class="form-group">-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"><span class="colour white"></span> White (14)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"><span class="colour blue"></span> Blue (10)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"><span class="colour green"></span>  Green (20)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"><span class="colour yellow"></span>  Yellow (13)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                      <!--<div class="checkbox">-->
+                        <!--<label>-->
+                          <!--<input type="checkbox"><span class="colour red"></span>  Red (10)-->
+                        <!--</label>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<button class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>-->
+                  <!--</form>-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <div class="banner"><a href="shop-category.html"><img src="{% static 'img/banner.jpg' %}" alt="sales 2014" class="img-fluid"></a></div>
+            </div>
+            <div class="col-md-9">
+              <!--<p class="text-muted lead">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>-->
+              <div class="row products products-big">
+                {% for pdt in all_pdt %}
+                <div class="col-lg-4 col-md-6">
+                  <div class="product">
+                    <div class="image"><a href="{% url 'shop-detail' id=pdt.id %}"><img src="{{ pdt.thumbnail.url }}" alt="" class="img-fluid image1"></a></div>
+                    <div class="text">
+                      <h3 class="h5"><a href="{% url 'shop-detail' id=pdt.id %}">{{ pdt }}</a></h3>
+                      <p class="price">{{ pdt.price }}</p>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="row">
+                <div class="col-md-12 banner mb-small"><a href="#"><img src="{% static 'img/banner2.jpg' %}" alt="" class="img-fluid"></a></div>
+              </div>
+              <div class="pages">
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                  <ul class="pagination">
+                    {% if all_pdt.has_previous %}
+                    <li class="page-item"><a href="?{{ page_req_var }}={{ all_pdt.previous_page_number }}" class="page-link"> <i class="fa fa-angle-double-left"></i></a></li>
+                    {% endif %}
+                    <li class="page-item active"><a href="#" class="page-link">{{ all_pdt.number }}</a></li>
+                     {% if all_pdt.has_next %}
+                    <li class="page-item"><a href="?{{ page_req_var }}={{ all_pdt.next_page_number }}" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                    {% endif %}
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
