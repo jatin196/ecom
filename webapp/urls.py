@@ -1,19 +1,28 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
-from .views import index, shopping_page, shopping_detail, add_to_cart, cart, acc_profile
+from django.urls import path, include
+from .views import (index,
+                    shopping_page,
+                    shopping_detail,
+                    add_to_cart,
+                    cart,
+                    remove_from_cart,
+                    remove_single_from_cart
+                    )
+
+
 
 
 urlpatterns = [
     path('', index, name='home'),
-    path('accounts/profile/', acc_profile, name='profile'),
+    # path('accounts/profile/', acc_profile, name='profile'),
     path('shop/', shopping_page, name='shop'),
 
     path('shop/<id>/', shopping_detail, name='shop-detail'),
     path('add-cart/<id>/', add_to_cart, name='add-cart'),
-    path('cart/', cart, name='cart')
-
-
+    path('remove-item/<id>/', remove_from_cart, name='remove-item'),
+    path('remove-single-item/<id>/', remove_single_from_cart, name='remove-single-item'),
+    path('cart/', cart, name='cart'),
 ]
 
 if settings.DEBUG:
@@ -23,4 +32,7 @@ if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
+    # import debug_toolbar
+    # urlpatterns += [path('__debug__/'), index, include(debug_toolbar.urls)]
+
 

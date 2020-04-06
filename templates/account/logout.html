@@ -6,7 +6,7 @@
 
 {% block content %}
 <h1>{% trans "Sign Out" %}</h1>
-
+<div class="mb-4">
 <p>{% trans 'Are you sure you want to sign out?' %}</p>
 
 <form method="post" action="{% url 'account_logout' %}">
@@ -14,8 +14,11 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <button type="submit">{% trans 'Sign Out' %}</button>
+  <div >
+    <button type="submit" class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Sign Out</button>
+  </div>
+  <!--<button type="submit">{% trans 'Sign Out' %}</button>-->
 </form>
-
+</div>
 
 {% endblock %}

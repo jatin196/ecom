@@ -3,16 +3,28 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
 
-class Category(models.Model):
-    category_name = models.CharField(max_length=40)
-    def __str__(self):
-        return self.category_name
+# class Category(models.Model):
+#     category_name = models.CharField(max_length=40)
+#     def __str__(self):
+#         return self.category_name
+#
+Category_choices =(
+    ('Sw', 'Sports Wear'),
+    ('S', 'Shirt' ),
+    ('OW', 'Outwear')
+)
 
+Label_choices =(
+    ('P', 'Primary'),
+    ('S', 'Shirt' ),
+    ('D', 'Danger')
+)
 
 class Item(models.Model):
     item_name = models.CharField(max_length=100)
     overview = models.CharField(max_length=120)
-    categories = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.CharField(choices=Category_choices, max_length=2)
+    label = models.CharField(choices=Label_choices, max_length=1)
     price = models.FloatField()
     description = models.TextField()
     thumbnail = models.ImageField()
@@ -74,5 +86,3 @@ class Order(models.Model):
         return self.total_price()*(0.01)
     def get_tax_price(self):
         return self.total_price()*(0.18)
-    def get_final_price(self):
-        return

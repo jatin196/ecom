@@ -3,13 +3,14 @@ from .models import Item, OrderItem, Order
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, "index3.html", {})
 
-def acc_profile(request):
-    return redirect("home")
+# def acc_profile(request):
+#     return redirect('home')
 
 
 @login_required()
@@ -42,7 +43,7 @@ def shopping_detail(request, id):
     }
     return render(request, "shop-detail.html", context)
 
-
+@login_required()
 def add_to_cart(request, id):
     print("adding to cart clicked")
     print(id)
@@ -61,7 +62,7 @@ def add_to_cart(request, id):
             messages.info(request, "Added one more ")
             print("adding to cart clicked")
             print(id)
-            return redirect("shop-detail", id=id)
+            return redirect("cart")
         else:
             order.items.add(order_item)
             messages.info(request, "Item Added ")
@@ -83,3 +84,60 @@ def cart(requset):
         'order' : order
     }
     return render(requset, "shop-basket.html", context)
+
+
+@login_required()
+def remove_from_cart(request, id):
+    print("adding to cart clicked")
+    print(id)
+    item = get_object_or_404(Item, id=id)
+
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__id=id).exists():
+            order_item = OrderItem.objects.filter(
+                item=item,
+                user=request.user,
+                ordered=False
+            )[0]
+
+            order.items.entry_set.remove(order_item)
+            order_item.save()
+            messages.info(request, "This Item was removed")
+            return redirect("shop-detail", id=id)
+        else:
+            messages.info(request, "Not In your cart")
+            return redirect("shop-detail", id=id)
+    else:
+        messages.info(request, "Not In your cart")
+        return redirect("shop-detail", id=id)
+
+
+@login_required()
+def remove_single_from_cart(request, id):
+    print("adding to cart clicked")
+    print(id)
+    item = get_object_or_404(Item, id=id)
+
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__id=id).exists():
+
+            order_item = OrderItem.objects.filter(
+                item=item,
+                user=request.user,
+                ordered=False
+            )[0]
+            order_item.quantity -= 1
+            order_item.save()
+
+            messages.info(request, "Qty was updated")
+            return redirect("cart")
+        else:
+            messages.info(request, "Not In your cart")
+            return redirect("shop-detail", id=id)
+    else:
+        messages.info(request, "Not In your cart")
+        return redirect("shop-detail", id=id)

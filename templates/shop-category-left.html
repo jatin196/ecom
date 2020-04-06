@@ -139,6 +139,7 @@
                     <div class="text">
                       <h3 class="h5"><a href="{% url 'shop-detail' id=pdt.id %}">{{ pdt }}</a></h3>
                       <p class="price">{{ pdt.price }}</p>
+                      <p class="category">{{ pdt.get_category_display }}</p>
                     </div>
                   </div>
                 </div>

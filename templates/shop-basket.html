@@ -45,12 +45,16 @@
                           <td><a href="#"><img src="{{ items.item.thumbnail.url }}" alt="{{ items.item }}" class="img-fluid"></a></td>
                           <td><a href="#">{{ items.item }}</a></td>
                           <td>
-                            <input type="number" value="{{ items.quantity }}" class="form-control">
+                            <!--<input type="number" value="{{ items.quantity }}" class="form-control">-->
+                           <a href="{% url 'remove-single-item' id=items.item.id %}"><i class="fa fa-minus-square-o" aria-hidden="true"></i></a>
+                            {{ items.quantity }}
+                            <a href="{% url 'add-cart' id=items.item.id %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+
                           </td>
                           <td>${{ items.item.price }}</td>
                           <td>$0.00</td>
                           <td>${{ items.get_item_price }}</td>
-                          <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                          <td><a href="{% url 'remove-item' id=items.item.id %}"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
                        {% endfor %}
                       </tbody>
