@@ -158,13 +158,17 @@
                       </div>
                       <p class="price">${{ pdt.price }}</p>
                       <p class="text-center">
-                         <a href="{% url  'add-cart' id=pdt.id   %}">
+
                        <button type="submit" class="btn btn-template-outlined">
                            <i class="fa fa-shopping-cart"></i>
-                      Add to cart
+                      <a href="{% url  'add-cart' id=pdt.id   %}"> Add to cart </a>
                        </button>
-                         </a>
-                          <a href="{% url 'add-cart' id=pdt.id  %}"> <button  type="submit"  data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="btn btn-default"><i class="fa fa-heart-o"></i></button></a>
+
+                          <a href="{% url 'add-cart' id=pdt.id  %}">
+                            <button  type="submit"  data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="btn btn-default">
+                            <i class="fa fa-heart-o"></i>
+                            </button>
+                          </a>
 
                       </p>
                     </form>

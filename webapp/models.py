@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
+from django_countries.fields import CountryField
 
 # class Category(models.Model):
 #     category_name = models.CharField(max_length=40)
@@ -68,7 +69,7 @@ class Order(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
-
+    billing_address = models.ForeignKey('billingAddress', on_delete=models.SET_NULL, blank=True, null=True)
     def __str__(self):
         return self.user.username
 
@@ -86,3 +87,14 @@ class Order(models.Model):
         return self.total_price()*(0.01)
     def get_tax_price(self):
         return self.total_price()*(0.18)
+
+
+class billingAddress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    add1 = models.CharField(max_length=100)
+    add2 = models.CharField(max_length=100)
+    country = CountryField(multiple=True)
+    zip = models.CharField(max_length=100)
+
+    def __str__(self):
+         return self.user.username

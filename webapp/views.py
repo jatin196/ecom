@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Item, OrderItem, Order
+from .models import Item, OrderItem, Order, billingAddress
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from django.contrib.auth.decorators import login_required
+from .forms import CheckoutForm
 
 def index(request):
     return render(request, "index3.html", {})
@@ -101,8 +102,8 @@ def remove_from_cart(request, id):
                 user=request.user,
                 ordered=False
             )[0]
-
-            order.items.entry_set.remove(order_item)
+            order_item.quantity=1
+            order.items.remove(order_item)
             order_item.save()
             messages.info(request, "This Item was removed")
             return redirect("shop-detail", id=id)
@@ -130,9 +131,11 @@ def remove_single_from_cart(request, id):
                 user=request.user,
                 ordered=False
             )[0]
-            order_item.quantity -= 1
-            order_item.save()
-
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+            else:
+                remove_from_cart(request, id)
             messages.info(request, "Qty was updated")
             return redirect("cart")
         else:
@@ -141,3 +144,48 @@ def remove_single_from_cart(request, id):
     else:
         messages.info(request, "Not In your cart")
         return redirect("shop-detail", id=id)
+
+class CheckoutView(View):
+    def get(self, *args, **kwargs):
+        form = CheckoutForm()
+        context = {
+            'form': form
+        }
+        return render(self.request, "shop-checkout1.html", context)
+
+    def post(self, *args, **kwargs):
+        if self.request.method == "POST":
+            form = CheckoutForm(self.request.POST or None)
+            try:
+                order = Order.objects.get(user=self.request.user, ordered=False)
+                if form.is_valid():
+                    add1 = form.cleaned_data.get('add1')
+                    add1 = form.cleaned_data.get('add2')
+                    country = form.cleaned_data.get('country')
+                    zip = form.cleaned_data.get('zip')
+                    payment_option = form.cleaned_data.get('payment_option')
+                    billing_address = billingAddress(
+                        user=self.request.user,
+                        add1=add1,
+                        add2=add2,
+                        country=country,
+                        zip=zip
+                    )
+                    billing_address.save()
+                    order.billing_address = billing_address
+                    order.save()
+                    return redirect("checkout-detail")
+                # context = {
+                #     'object' : order
+                # }
+                # return render(self.request, "cart.html", context)
+            except ObjectDoesNotExist :
+                print("Not found")
+                return redirect('/')
+
+        # else:
+        #     return redirect("shop")
+
+class PaymentView(View):
+    def get(self, *args, **kwargs):
+        return render(self.request, "payment.html")

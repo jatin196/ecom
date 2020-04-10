@@ -54,7 +54,7 @@
                           <td>${{ items.item.price }}</td>
                           <td>$0.00</td>
                           <td>${{ items.get_item_price }}</td>
-                          <td><a href="{% url 'remove-item' id=items.item.id %}"><i class="fa fa-trash-o"></i></a></td>
+                          <td><a href="{% url 'remove-item' id=items.item.id %}"> <i class="fa fa-trash-o"></i></a></td>
                         </tr>
                        {% endfor %}
                       </tbody>
@@ -70,7 +70,9 @@
                     <div class="left-col"><a href="{% url 'shop' %}" class="btn btn-secondary mt-0"><i class="fa fa-chevron-left"></i> Continue shopping</a></div>
                     <div class="right-col">
                       <!--<button class="btn btn-secondary"><i class="fa fa-refresh"></i> Update cart</button>-->
-                      <a href="#"><button type="submit" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button></a>
+                      <button type="submit" class="btn btn-template-outlined">
+                        <a href="{% url 'checkout-detail' %}">Proceed to checkout</a>
+                        <i class="fa fa-chevron-right"></i></button>
                     </div>
                   </div>
                 </form>
